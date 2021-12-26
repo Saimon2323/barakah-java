@@ -18,12 +18,24 @@ public class GenericClassTest {
         int intVal = integerGeneric.getObj();
         System.out.println("Value: " + intVal);
 
-        //-------------------------------------------------------------
+        //--------------------------------
 
         Generic<String> stringGeneric = new Generic<String>("Generic Hasan");
         stringGeneric.showType();
         String str = stringGeneric.getObj();
         System.out.println("Value: " + str);
 
+
+        System.out.println("##############################################################");
+
+        // Multiple Type Parameterize
+        Tuple<String, Integer> nameAndNo = new Tuple<String, Integer>("Hasan", 23);
+
+
+        Tuple<String, Tuple<String, Integer>> companyAndNameAndNo;
+        companyAndNameAndNo = new Tuple<String, Tuple<String, Integer>>("Exabyting", nameAndNo);
+
+        nameAndNo.showType();
+        companyAndNameAndNo.showType();
     }
 }
