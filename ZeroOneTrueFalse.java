@@ -31,6 +31,10 @@ public class ZeroOneTrueFalse {
         } else {
             System.out.println("True");
         }
+
+        while (1) {
+            System.out.println("Not gonna print");
+        }
     }
 
 }
