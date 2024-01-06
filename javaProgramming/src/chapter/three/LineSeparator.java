@@ -1,3 +1,5 @@
+package chapter.three;
+
 /**
  * Author: Muhammad Saimon
  * Since 1/6/24 1:17 AM
