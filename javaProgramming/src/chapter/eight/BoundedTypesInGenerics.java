@@ -7,6 +7,7 @@ import java.util.Arrays;
  * Since Feb 17, 2024 1:52 AM
  */
 
+// <T extends Number> means T hote hobe oisob class jara Number er subclass
 public class BoundedTypesInGenerics<T extends Number> {
     private T[] nums;
 
