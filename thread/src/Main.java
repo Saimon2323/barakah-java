@@ -5,10 +5,12 @@ import java.util.concurrent.Callable;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("ThreadGroup");
+        System.out.println("Current Thread Name: " + Thread.currentThread().getName());
+
+        System.out.println("\nThreadGroup");
         Thread.currentThread().getThreadGroup().list();
 
-        System.out.println("ThreadGroup details with parent");
+        System.out.println("\nThreadGroup details with parent");
         Thread.currentThread().getThreadGroup().getParent().list();
     }
 }
