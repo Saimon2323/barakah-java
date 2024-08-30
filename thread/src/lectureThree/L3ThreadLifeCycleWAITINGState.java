@@ -1,3 +1,5 @@
+package lectureThree;
+
 /**
  * @Author Muhammad Saimon
  * @since Aug 30, 2024 11:43 PM

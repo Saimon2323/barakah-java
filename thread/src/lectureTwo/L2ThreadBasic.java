@@ -1,3 +1,5 @@
+package lectureTwo;
+
 /**
  * @Author Muhammad Saimon
  * @since Aug 29, 2024 9:29 AM
@@ -19,7 +21,7 @@ public class L2ThreadBasic {
     public static void main(String[] args) {
         System.out.println("main Start :: " + Thread.currentThread().getName());
 
-        // this is like Task class. Same thing can be done by using Task class
+        // this is like lectureTwo.Task class. Same thing can be done by using lectureTwo.Task class
         Runnable target = new Runnable() {
             @Override
             public void run() {
