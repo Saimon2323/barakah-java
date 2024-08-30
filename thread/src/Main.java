@@ -7,6 +7,8 @@ public class Main {
 
         System.out.println("Current Thread Name: " + Thread.currentThread().getName());
 
+        System.out.println("Thread Developer id: " + Thread.currentThread().getId());
+
         System.out.println("\nThreadGroup");
         Thread.currentThread().getThreadGroup().list();
 
