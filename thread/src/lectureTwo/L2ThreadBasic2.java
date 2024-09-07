@@ -57,5 +57,14 @@ To check Thread info
 5. Run the following command
     jstack <process id>
 6. You will see the thread info
-
+7. If you want to save the thread info in a file, run the following command
+    jstack <process id> > thread-info.txt
+8. If you want to check that the thread is acquired a lock or lock info, run the following command
+    jstack -l <process id>
+9. If you want to check the thread info of a specific thread, run the following command
+    jstack -l <process id> | grep <thread id>
+10. if you want to check State of a thread, run the following command
+    jstack -l <process id> | grep <thread id> -A 1 // -A 1 means after 1 line
+11. If you want to check that the thread and its sub-threads, run the following command
+    jstack -l <process id> | grep <thread id> -A 10 // -A 10 means after 10 lines
 */
