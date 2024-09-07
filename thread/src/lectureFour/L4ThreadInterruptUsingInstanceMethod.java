@@ -2,14 +2,17 @@ package lectureFour;
 
 /**
  * @Author Muhammad Saimon
- * @since Sep 04, 2024 9:49 PM
+ * @since Sep 07, 2024 10:41 AM
  */
 
- // Another way of Interrupt without using Exception
-class L4Task implements Runnable {
+class L4TaskTwo implements Runnable {
     @Override
     public void run() {
         System.out.println("Start Task...");
+
+        Thread l4TaskThread = Thread.currentThread();
+        // print this line to prove that this is basically the same thread (t2)
+        System.out.println("Check Name: " + l4TaskThread.getName() + " and HashCode: " + l4TaskThread.hashCode());
 
         long count = 0;
 
@@ -25,57 +28,42 @@ class L4Task implements Runnable {
         // This method clears the interrupted status of the current thread. If the interrupted status is cleared, the method returns false.
         // This is different from the isInterrupted method, which only checks the interrupted status without clearing it.
 
-        System.out.println("Interrupted status beginning: " + Thread.interrupted());
-        while (!Thread.interrupted()) {
-//            System.out.println("Interrupted status inside: " + Thread.interrupted());
+        System.out.println("Interrupted status out: " + l4TaskThread.isInterrupted());
+        while (!l4TaskThread.isInterrupted()) {
+//            System.out.println("Interrupted status inside: " + l4TaskThread.isInterrupted());
             count++;
         }
 
-        // return false because the interrupted status is cleared by interrupted() method
-        System.out.println("Interrupted status: " + Thread.interrupted());
+        System.out.println("Interrupted status using isInterrupted(): " + l4TaskThread.isInterrupted());
+        System.out.println("Interrupted status using interrupted(): " + Thread.interrupted());
+        System.out.println("Interrupted status using isInterrupted(): " + l4TaskThread.isInterrupted());
         System.out.println("Do some task..." + count);
         System.out.println("End Task...");
     }
 }
 
-public class L4ThreadInterrupt {
 
+public class L4ThreadInterruptUsingInstanceMethod {
     public static int value = 0;
 
     public static void main(String[] args) throws Exception {
 
-
-        // Interrupt using Exception
-        Thread t1 = new Thread(() -> {
-            System.out.println("Start Task inside...");
-            try {
-                Thread.sleep(10_000);
-            } catch (InterruptedException e) {
-                System.out.println("Thread is interrupted...");
-                e.printStackTrace();
-            }
-            System.out.println("Do some task..." + value);
-            System.out.println("End Task inside...");
-        }, "Thread-1");
-
-
-
         System.out.println("Start Main...");
 
-        L4Task task = new L4Task();
-        Thread t2 = new Thread(task, "Thread-2");
+        L4TaskTwo task = new L4TaskTwo();
+        Thread t2 = new Thread(task, "Thread-2-1");
 
-        // t1.start();
         t2.start();
+        System.out.println("Check Name: " + t2.getName() + " and HashCode: " + t2.hashCode());
 
-        Thread.sleep(4_000);
+        Thread.sleep(2000);
 
-        value = 20;
+        value = 10;
 
-        // t1.interrupt();
-         t2.interrupt(); // flag is set to true
+        t2.interrupt(); // flag is set to true
 
         System.out.println("state: " + t2.getState());
         System.out.println("Main is completed...");
+
     }
 }
