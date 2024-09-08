@@ -16,3 +16,21 @@ public class Main {
         Thread.currentThread().getThreadGroup().getParent().list();
     }
 }
+
+// Both Reference Handler and Finalizer threads are used by the JVM for garbage collection.
+// The Reference Handler thread is responsible for cleaning up references to objects in Stack memory that are no longer needed.
+// The Finalizer thread is responsible for cleaning up objects from the Heap memory whose references are no longer available in the Stack memory.
+
+
+// Use of Thread[Reference Handler,10,system]
+// The Reference Handler thread is started by the JVM when it is initialized, and it runs in the background to clean up references to objects that are no longer needed.
+// The Reference Handler thread is a low-priority thread, which means that it runs in the background and does not interfere with the execution of other threads.
+// The Reference Handler thread is an important part of the garbage collection process in Java, as it helps to free up memory by cleaning up references to objects that are no longer in use.
+// Reference Handler checks which objects are unreachable and then those unreachable objects are sent to the Finalizer thread for finalization.
+// The Finalizer thread is responsible for cleaning up the objects that are no longer in use.
+
+
+// Use of Thread[Finalizer,8,system]
+// Finalizer thread is used to clean up objects that are no longer in use.
+// It takes input from the Reference Handler thread and cleans up the objects that are no longer in use.
+// Garbage collection is the process of cleaning up objects that are no longer in use, and the Finalizer thread is an important part of this process.
