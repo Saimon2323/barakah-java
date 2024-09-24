@@ -36,15 +36,15 @@ class ThreadJoin1 extends Thread {
     public void run() {
         System.out.println("Thread Join 1 is running...");
 
-        ThreadJoin2 t2 = new ThreadJoin2();
-        t2.start();
+        ThreadJoin2 tJoin2 = new ThreadJoin2();
+        tJoin2.start();
 
         System.out.println(Thread.currentThread().getName() + " will be halted here and will wait for the thread 'ThreadJoin-2' to complete...");
         try {
             // join() method will make this 'ThreadJoin-1' to wait for the thread 'ThreadJoin-2' to complete.
             // So, this 'ThreadJoin-1' will go to WAITING state.
             // When the thread 'ThreadJoin-2' completes, this 'ThreadJoin-1' will come out of the WAITING state and will continue its execution.
-            t2.join();
+            tJoin2.join();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -64,11 +64,11 @@ class ThreadJoin1 extends Thread {
 public class L3ThreadWaitingStateByJoin {
     public static void main(String[] args) throws Exception {
 
-        ThreadJoin1 t1 = new ThreadJoin1();
-        t1.start();
+        ThreadJoin1 tJoin1 = new ThreadJoin1();
+        tJoin1.start();
 
         Thread.sleep(5_000);
-        System.out.println("State of ThreadJoin1: " + t1.getState());
+        System.out.println("State of ThreadJoin1: " + tJoin1.getState());
         System.out.println("Main end...");
     }
 }
