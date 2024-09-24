@@ -5,7 +5,7 @@ package lectureSix;
  * @since Sep 24, 2024 11:05 PM
  */
 
-public class GuessTheOutput {
+public class BeforeJoin {
 
     private static int[] arr = {1, 2, 3, 4, 5};
     private static int sum = 0;
