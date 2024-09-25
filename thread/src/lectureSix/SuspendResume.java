@@ -29,6 +29,7 @@ public class SuspendResume {
             System.out.println("\nStatus before suspend: " + t1.getState());
             t1.suspend(); // suspend the thread t1
 
+            // for this println() method, the thread t1 can go to BLOCKED state because println() method is synchronized.
             System.out.println("Thread 1 is suspended for 3 secs here...");
             System.out.println("Status after suspend: " + t1.getState());
             Thread.sleep(3_000);
