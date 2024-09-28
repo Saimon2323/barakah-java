@@ -27,7 +27,8 @@ public class BigIntegerExample {
         // here, we will get a StackOverflowError because the Stack frame is limited, and it can't hold that much data in the stack frame for a RECURSIVE call
         // of bigFact method with a big number like 10000 or more than that number
         // because Recursion uses the stack frame to store the method calls. Those methods create a lot of stack frames in the stack memory.
-        // So, we need to increase the stack size to avoid this error. We can increase the stack size by using -Xss flag in the JVM.
+        // So, we need to increase the stack size to avoid this error.
+        // By default, the stack size is 1MB. We can increase the stack size by using -Xss flag in the JVM.
         // For example, java -Xss10m BigIntegerExample will increase the stack size to 10mb.
         // But it is not recommended to increase the stack size because it will consume more memory, and it is not a good practice for a big number.
         // So, we can use the iterative approach to avoid this error. (Given below)
@@ -40,6 +41,8 @@ public class BigIntegerExample {
         // Because Iterative approach doesn't have method calls in the stack frame like recursive approach
         // So, it will not cause StackOverFlowError for big numbers
         System.out.println("Using Iterative approach: " + bigFactorialUsingIteration(new BigInteger("10000")));
+
+        // TODO:: additionally, we can set the stackSize (Memory) for a thread to calculate this Big Number using Recursion. (SEE ThreadStackSizeUsingBigInteger.java)
     }
 
     static long factorialUsingRecursion(int num) {
