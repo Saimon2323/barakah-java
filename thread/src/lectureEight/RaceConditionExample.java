@@ -28,7 +28,7 @@ public class RaceConditionExample {
         });
 
         Thread thread2 = new Thread(() -> {
-            for (int i = 0; i < 10_000; i++) {
+            for (int i = 0; i < 20_000; i++) {
                 increment();
             }
         });
@@ -45,8 +45,17 @@ public class RaceConditionExample {
         // because both threads are trying to access the shared resource at the same time. That's why it's called Race Condition.
         // Race Condition: When multiple threads are trying to access the shared resource at the same time.
         // That's why sometimes it will print 20_000, sometimes it will print less than 20_000.
-        // It is creating Data Inconsistency.
+        // It is creating Data Inconsistency. (see Data-inconsistency-example.png)
         System.out.println(count);
+
+
+        // To solve this problem we need to make the shared resource thread-safe.
+        // We can make the shared resource thread-safe by using synchronized keyword. (see SynchronizedExample.java)
+        // We can make the shared resource thread-safe by using Locks. (see LockAndReentrantLockExample.java)
+        // We can make the shared resource thread-safe by using Atomic classes. (see AtomicExample.java)
+        // We can make the shared resource thread-safe by using ThreadLocal. (see ThreadLocalExample.java)
+        // then you will see the result is always 30_000.
+        // because we made the shared resource thread-safe.
     }
 }
 

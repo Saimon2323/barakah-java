@@ -9,6 +9,22 @@ import java.util.List;
  */
 
 public class ThreadLocalExample {
+
+    // We can make the shared resource thread-safe by using ThreadLocal. below is the example:
+    // ThreadLocal is a class that provides thread-local variables. These variables differ from their normal
+    // counterparts in that each thread that accesses one (via its get or set method) has its own, independently initialized copy of the variable.
+    // In this example, we are using ThreadLocal to make the shared resource thread-safe.
+    // ThreadLocal<Integer> count = ThreadLocal.withInitial(() -> 0);
+    // ThreadLocal.withInitial() method returns a ThreadLocal with an initial value of 0.
+    // ThreadLocal.withInitial() method takes a Supplier as an argument.
+    // Supplier is a functional interface that takes no arguments and returns a value.
+    // In this case, the Supplier is a lambda expression that returns 0.
+    // ThreadLocal<Integer> count = ThreadLocal.withInitial(() -> 0);
+    // ThreadLocal.withInitial() method returns a ThreadLocal with an initial value of 0.
+    // ThreadLocal.withInitial() method takes a Supplier as an argument.
+    // Supplier is a functional interface that takes no arguments and returns a value.
+    // In this case, the Supplier is a lambda expression that returns 0.
+
     static ThreadLocal<Integer> count = ThreadLocal.withInitial(() -> 0);
     static List<Integer> threadCounts = new ArrayList<>();
 
