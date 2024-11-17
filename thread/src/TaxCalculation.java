@@ -7,21 +7,30 @@ import java.util.Scanner;
 
 public class TaxCalculation {
     public static void main(String[] args) {
-        // Tax Calculation in Bangladesh 2024
-        double incomePerYear;
+        // Tax Calculation in Bangladesh 2024 for private job holders
+        double incomePerYear, taxFreeAmount;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your income per year: ");
-        incomePerYear = scanner.nextDouble();
+
+        System.out.print("Enter your previous year salary per Month: ");
+        double prevSalary = scanner.nextDouble();
+
+        System.out.print("Enter your current year salary per Month: ");
+        double currSalary = scanner.nextDouble();
+
+        incomePerYear = (prevSalary * 6) + (currSalary * 7);
+        System.out.println("Income Per Year: " + incomePerYear);
 
         double tax = 0;
 
-        double taxableIncome = (incomePerYear - (incomePerYear / 3)) - 350000;
+        taxFreeAmount = Math.min(incomePerYear / 3, 450000);
+
+        double taxableIncome = (incomePerYear - taxFreeAmount) - 350000;
         System.out.println("Taxable Income: " + taxableIncome);
 
         if (taxableIncome < 0) {
             tax = 0;
         } else if (taxableIncome > 0 && taxableIncome <= 100000) {
-            tax = 5000;
+            tax = taxableIncome * 0.05;
         } else if (taxableIncome > 100000) {
             tax = 5000;
             taxableIncome = taxableIncome - 100000;
@@ -40,6 +49,7 @@ public class TaxCalculation {
 
                         if (taxableIncome > 0) {
                             tax = tax + (taxableIncome * 0.25);
+                            taxableIncome = 0;
                         }
                     } else {
                         tax = tax + (taxableIncome * 0.2);
