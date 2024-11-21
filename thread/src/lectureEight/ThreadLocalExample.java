@@ -19,11 +19,6 @@ public class ThreadLocalExample {
     // ThreadLocal.withInitial() method takes a Supplier as an argument.
     // Supplier is a functional interface that takes no arguments and returns a value.
     // In this case, the Supplier is a lambda expression that returns 0.
-    // ThreadLocal<Integer> count = ThreadLocal.withInitial(() -> 0);
-    // ThreadLocal.withInitial() method returns a ThreadLocal with an initial value of 0.
-    // ThreadLocal.withInitial() method takes a Supplier as an argument.
-    // Supplier is a functional interface that takes no arguments and returns a value.
-    // In this case, the Supplier is a lambda expression that returns 0.
 
     static ThreadLocal<Integer> count = ThreadLocal.withInitial(() -> 0);
     static List<Integer> threadCounts = new ArrayList<>();

@@ -5,6 +5,7 @@ package lectureEight;
  * @since Sep 28, 2024 11:26 PM
  */
 
+// Class level lock Example
 public class RaceConditionExample {
 
     // shared variable (Resource)
@@ -28,7 +29,7 @@ public class RaceConditionExample {
         });
 
         Thread thread2 = new Thread(() -> {
-            for (int i = 0; i < 20_000; i++) {
+            for (int i = 0; i < 10_000; i++) {
                 increment();
             }
         });
