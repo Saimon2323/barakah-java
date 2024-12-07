@@ -1,9 +1,11 @@
+import java.io.Serializable;
+
 /**
  * @Author Muhammad Saimon
  * @since Dec 07, 2024 2:24 PM
  */
 
-public class StudentClass {
+public class StudentClass implements Serializable {
 
     private final String id;
 
@@ -12,6 +14,11 @@ public class StudentClass {
     private final float cgpa;
 
     public StudentClass(String id, String name, float cgpa) {
+
+        if (cgpa < 0.00f || cgpa > 4.00f) {
+            throw new IllegalArgumentException("Invalid CGPA %.2f".formatted(cgpa));
+        }
+
         this.id = id;
         this.name = name;
         this.cgpa = cgpa;

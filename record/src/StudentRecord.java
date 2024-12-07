@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /**
  * @Author Muhammad Saimon
  * @since Dec 07, 2024 5:09 PM
@@ -13,7 +15,7 @@
 
 // StudentRecord(String id, String name, float cgpa) - this is Record Header
 // here, StudentRecord is Record name and (id, name, cgpa) these are component list
-public record StudentRecord(String id, String name, float cgpa) {
+public record StudentRecord(String id, String name, float cgpa) implements Serializable {
 
     // As Record class is final class, you can't 'extends' from other class.
     // And also this Record class also can't extends other class since it already extends Record class. Java doesn't support multiple inheritance.
