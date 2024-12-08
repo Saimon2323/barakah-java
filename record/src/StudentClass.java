@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @Author Muhammad Saimon
@@ -44,4 +45,18 @@ public class StudentClass implements Serializable {
                 ", cgpa=" + cgpa +
                 '}';
     }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        System.out.println("equals(): Checking Set Checking Logic");
+//        if (o == null || getClass() != o.getClass()) return false;
+//        StudentClass that = (StudentClass) o;
+//        return Float.compare(cgpa, that.cgpa) == 0 && Objects.equals(id, that.id) && Objects.equals(name, that.name);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        System.out.println("hashCode(): Checking Set Checking Logic");
+//        return Objects.hash(id, name, cgpa);
+//    }
 }
