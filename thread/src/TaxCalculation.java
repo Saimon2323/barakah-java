@@ -66,5 +66,10 @@ public class TaxCalculation {
             }
         }
         System.out.println("Tax: " + tax);
+
+        double maxTaxRebate = (incomePerYear - taxFreeAmount) * 0.03;
+
+        System.out.println("Max Tax Rebate: " + maxTaxRebate);
+        System.out.println("AIT: " + (tax - maxTaxRebate));
     }
 }
