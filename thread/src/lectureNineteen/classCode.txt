@@ -1,0 +1,155 @@
+package com.sdlc.pro;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static com.sdlc.pro.util.Utils.sleep;
+
+record Order(Integer userId, String productName, double price, int unit) {
+    public double getAmount() {
+        return this.price * this.unit;
+    }
+}
+
+record Product(int id, String name, double price) {
+}
+
+record User(Integer id, String firstName, String lastName, String email) {
+    public String fullName() {
+        return this.firstName + " " + this.lastName;
+    }
+}
+
+public class Example {
+
+    private static final Map<Integer, Product> productMap = Stream.of(
+            new Product(1, "T-Shirt", 500),
+            new Product(2, "Shirt", 1200),
+            new Product(3, "Pant", 1500),
+            new Product(4, "Canvas Shoe", 800),
+            new Product(5, "Apex shoe", 2200),
+            new Product(6, "Cap", 250),
+            new Product(7, "Trouser", 700)
+    ).collect(Collectors.toMap(Product::id, Function.identity()));
+
+    private static List<User> fetchUserList() throws IOException {
+        var path = Paths.get("files/users.csv");
+        try (var lines = Files.lines(path)) {
+            return lines.filter(s -> !s.startsWith("#"))// skip header
+                    .map(Example::buildUser)
+                    .toList();
+        }
+    }
+
+    private static User buildUser(String s) {
+        sleep(2);
+        var values = s.split(",");
+        return new User(Integer.valueOf(values[0]), values[1], values[2], values[3]);
+    }
+
+    private static Map<Integer, List<Order>> fetchUserOrdersMap() throws IOException {
+        var path = Paths.get("files/orders.csv");
+        try (var lines = Files.lines(path)) {
+            return lines.filter(s -> !s.startsWith("#"))// skip header
+                    .flatMap(s -> buildOrders(s).stream())
+                    .collect(Collectors.groupingBy(Order::userId));
+
+        }
+    }
+
+    private static List<Order> buildOrders(String s) {
+        sleep(3);
+        var list = new ArrayList<Order>();
+        var values = s.split(",");
+        var userId = Integer.valueOf(values[0]);
+        for (var order : values[1].split(";")) {
+            var idAndUnit = order.split(":");
+            var pid = Integer.parseInt(idAndUnit[0]);
+            var unit = Integer.parseInt(idAndUnit[1]);
+            var product = productMap.get(pid);
+            list.add(new Order(userId, product.name(), product.price(), unit));
+        }
+        return list;
+    }
+
+    static List<User> userList;
+    static Map<Integer, List<Order>> userOrderMap;
+
+    static final CountDownLatch latch = new CountDownLatch(2);
+
+    public static void main(String[] args) throws Exception {
+        var st = System.currentTimeMillis();
+
+        var userThread = new Thread(()->{
+            try {
+                userList = fetchUserList();// 1st user
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } finally {
+                latch.countDown();
+            }
+        });
+
+        var orderThread = new Thread(()->{
+            try {
+                userOrderMap = fetchUserOrdersMap(); // 1000
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } finally {
+                latch.countDown();
+            }
+        });
+
+        userThread.start();
+        orderThread.start();
+
+        latch.await();
+
+        buildInvoice(userList, userOrderMap);
+
+        var et = System.currentTimeMillis();
+        System.out.println("total time consumed: " + (et - st) + "ms");
+    }
+
+    static void buildInvoice(List<User> users, Map<Integer, List<Order>> userOrdersMap) {
+        // user_name: Rakib
+        // product_01 340 * 2
+        // product_02 250 * 5
+        //------------------------
+        // total amount: 4545
+        for (var user : users) {
+            var orderList = userOrdersMap.get(user.id());
+            StringBuilder invoice = new StringBuilder("""
+                    User name: %s
+                    User email: %s
+                    """.formatted(user.fullName(), user.email()));
+            double total = 0.0;
+            for (Order order : orderList) {
+                double amount = order.getAmount();
+                total += amount;
+                invoice.append(order.productName())
+                        .append(" ")
+                        .append(order.price())
+                        .append(" * ")
+                        .append(order.unit())
+                        .append(" = ")
+                        .append(amount)
+                        .append('\n');
+            }
+            invoice.append("---------------------------\n")
+                    .append("total: ")
+                    .append(total)
+                    .append('\n');
+
+            System.out.println(invoice);
+        }
+    }
+}
