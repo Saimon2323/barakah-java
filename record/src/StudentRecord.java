@@ -19,7 +19,7 @@ public record StudentRecord(String id, String name, float cgpa) implements Seria
 
     // As Record class is final class, you can't 'extends' from other class.
     // And also this Record class also can't extends other class since it already extends Record class. Java doesn't support multiple inheritance.
-    // But you can implements other class from Record class i.e implements Serializable
+    // But you can implement other class from Record class i.e implements Serializable
     // Can't declare Non-Static field in Record
     // Possible to declare Static field in Record
     public static String schoolName;
